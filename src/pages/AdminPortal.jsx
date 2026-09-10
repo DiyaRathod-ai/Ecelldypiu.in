@@ -10,6 +10,7 @@ import {
 import CertificateManager from '../components/CertificateManager';
 import EventManager from '../components/EventManager';
 import LinkShortener from '../components/LinkShortener';
+import TeamManager from '../components/TeamManager';
 
 const AdminPortal = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -1858,6 +1859,26 @@ const AdminPortal = () => {
                                     <span>Link Shortener</span>
                                 </button>
                             </div>
+
+                            {/* Team Management Card */}
+                            <div className="bg-zinc-900 border-4 border-zinc-700 rounded-2xl p-6">
+                                <div className="flex items-center gap-4 mb-4">
+                                    <div className="w-14 h-14 bg-brand-yellow rounded-xl flex items-center justify-center">
+                                        <Users className="w-7 h-7 text-black" />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-black uppercase">Team Management</h3>
+                                        <p className="text-gray-400 text-sm">View, edit & manage team members</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => { setActiveTab('manage-team'); setError(null); setResult(null); }}
+                                    className="w-full flex items-center gap-3 p-3 bg-zinc-800 rounded-lg hover:bg-brand-yellow hover:text-black transition-colors text-left group"
+                                >
+                                    <Users className="w-4 h-4 text-brand-yellow group-hover:text-black" />
+                                    <span>Manage Team Members</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -2104,6 +2125,20 @@ const AdminPortal = () => {
                         </div>
                     );
                 })()}
+
+                {/* Team Management Tab */}
+                {activeTab === 'manage-team' && (
+                    <div className="max-w-6xl mx-auto">
+                        <button
+                            onClick={() => { setActiveTab('dashboard'); setError(null); setResult(null); }}
+                            className="flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
+                        >
+                            <ArrowLeft className="w-5 h-5" />
+                            <span>Back to Dashboard</span>
+                        </button>
+                        <TeamManager adminKey={sessionStorage.getItem('adminKey') || adminKey} />
+                    </div>
+                )}
 
                 {/* Link Shortener Tab */}
                 {activeTab === 'link-shortener' && (
